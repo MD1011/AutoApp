@@ -7,7 +7,7 @@ public class Auto {
 
 
     private String kennzeichen;
-    private int kilomerestand;
+    private int kilometerstandt;
     private int tankvolumen;
     private int tankstandt;
     Scanner scan = new Scanner(System.in);
@@ -48,7 +48,7 @@ public class Auto {
         }
     }
 
-    public void getKennzeichen() {
+    public void getKennzeichen(String kennzeichen) {
         this.kennzeichen = kennzeichen;
         System.out.println(kennzeichen);
     }
@@ -64,12 +64,12 @@ public class Auto {
         switch (x) {
             case "ja" -> {
                 System.out.println("Kilometerstand eingeben");
-                tankvolumen = scan.nextInt();
-                return tankvolumen;
+                kilometerstandt = scan.nextInt();
+                return kilometerstandt;
             }
             case "nein" -> {
                 System.out.println("Kein Kilometerstad hinterlegt");
-                return tankvolumen;
+                return kilometerstandt;
             }
             default -> {
                 System.out.println("keine gultige eingabe");
@@ -79,7 +79,7 @@ public class Auto {
     }
 
     public void getKilomerestand(int kilomerestand) {
-        this.tankvolumen = kilomerestand;
+        this.kilometerstandt = kilomerestand;
         System.out.println(kilomerestand);
     }
 
@@ -88,8 +88,8 @@ public class Auto {
     public int initTankvolumen() {
         System.out.println("Mochten Sie ein Tankvolumen fur dieses Fahrzeug anlegen?\n" +
                 "Geben Sie ja oder nein ein.");
-        String x = scan.nextLine();
-        switch (x) {
+        String w = scan.nextLine();
+        switch (w) {
             case "ja" -> {
                 System.out.println("Tankvolumen eingeben");
                 tankvolumen = scan.nextInt();
@@ -123,16 +123,15 @@ public class Auto {
                 System.out.println("Bitte geben Sie ihren aktuellen Tankstand in Prozend (Ohne %-Zeichen) an");
                 tankstandt = scan.nextInt();
                 if (tankstandt >= 0 && tankstandt <= 100) {
-                    System.out.println("mochten Sie Ihre Reichweite wissen? \n" +
-                            "geben Sie ja ein \n" +
-                            "oder nein falls nicht erwunscht");
+                    System.out.println("""
+                            mochten Sie Ihre Reichweite wissen?\s
+                            geben Sie ja ein\s
+                            oder nein falls nicht erwunscht""");
                     String p = scan.nextLine();
-                    int reichweite = 0;
                     if (p.equals("ja")) {
-                        reichweite = 0;
                         System.out.println("Bitte geben Sie Ihren Durchschnittsverbrauch ein");
                         double y = scan.nextDouble();
-                        reichweite = (int) (tankstandt / y) * 100;
+                        int reichweite = (int) (tankstandt / y) * 100;
                         System.out.println("Die Reichweiter betragt: " + reichweite + "Km.");
                     }
                     return tankstandt;
