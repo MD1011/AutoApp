@@ -2,6 +2,7 @@ public class ThreadReichweiteGesammt extends Thread {
 
     public final int tankvolumen;
     public final double y;
+    private int reichweiteVoll;
 
     public ThreadReichweiteGesammt(int tankvolumen, double y) {
         this.tankvolumen = tankvolumen;
@@ -10,10 +11,13 @@ public class ThreadReichweiteGesammt extends Thread {
 
     public void run() {
 
-        int reichweite =((int)(tankvolumen / y) * 100);
-        System.out.println("Vollgetankt kommen Sie " + reichweite + " km weit.");
+        reichweiteVoll =((int)(tankvolumen / y) * 100);
+
 
 }
 
 
+    public int getReichweite() {
+        return reichweiteVoll;
+    }
 }

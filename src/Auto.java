@@ -10,6 +10,8 @@ public class Auto {
     private int kilometerstandt;
     private int tankvolumen;
     private int tankstandt;
+    private double reichweite;
+    private int reichweiteVoll;
     Scanner scan = new Scanner(System.in);
 
 
@@ -148,6 +150,17 @@ public class Auto {
                         ThreadReichweiteGesammt tg1 = new ThreadReichweiteGesammt(tankvolumen, y);
                         t1.start();
                         tg1.start();
+                        try {
+                            t1.join();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        reichweite = t1.getReichweite();
+                        try {
+                            tg1.join();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                     }
                 } else {
                     System.out.println("Keine gultige Eingabe");
@@ -175,6 +188,18 @@ public class Auto {
 
 
 //__________________________________________________________________//
+
+    @Override
+    public String toString() {
+        return "Kennzeichen: " + kennzeichen + "\n" +
+                "Killometerstandt: " + kilometerstandt + "\n" +
+                "Tankvolumen: " + tankvolumen + "\n" +
+                "Tankstandt: " + tankstandt + "\n" +
+                "Reichweite: " + reichweite + "\n" +
+                "Reichweite mit vollem Tank: " + reichweiteVoll ;
+    }
+
+
 
 
 }

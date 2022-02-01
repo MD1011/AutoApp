@@ -2,6 +2,7 @@ public class ThreadReichweite extends Thread{
       private final int tankstandt;
       private final int tankstandtProzent;
       private final double y;
+      private double reichweite;
 
 
     public ThreadReichweite(int tankstandt,int tankstandtProzent, double y) {
@@ -13,9 +14,12 @@ public class ThreadReichweite extends Thread{
 
 
     public void run() {
-        double reichweite =(int) ((((tankstandt /100)*tankstandtProzent) / y) * 100);
-        System.out.println("Aktuell kommen Sie " + reichweite + " km weit");
+        reichweite = (((((double)tankstandt) /100)*tankstandtProzent) / y) * 100;
+
     }
 
 
+    public double getReichweite() {
+        return reichweite;
+    }
 }
