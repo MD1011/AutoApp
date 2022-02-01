@@ -16,7 +16,8 @@ public class Auto {
     public Auto() {
     }
 
-    public void start() {
+
+    public void initWerte() {
         initKennzeichen();
         initKilomerestand();
         initTankvolumen();
@@ -57,14 +58,16 @@ public class Auto {
 
     public int initKilomerestand() {
 
-        System.out.println("Mochten Sie ein Kilometerstand fur dieses Fahrzeug anlegen?\n" +
-                "Geben Sie ja oder nein ein.");
+        System.out.println("""
+
+                Mochten Sie ein Kilometerstand fur dieses Fahrzeug anlegen?
+                Geben Sie ja oder nein ein.""");
         String x = scan.nextLine();
 
         switch (x) {
             case "ja" -> {
                 System.out.println("Kilometerstand eingeben");
-                kilometerstandt = scan.nextInt();
+                kilometerstandt = Integer.parseInt(scan.nextLine());
                 return kilometerstandt;
             }
             case "nein" -> {
@@ -86,13 +89,15 @@ public class Auto {
     //__________________________________________________________________//
 
     public int initTankvolumen() {
-        System.out.println("Mochten Sie ein Tankvolumen fur dieses Fahrzeug anlegen?\n" +
-                "Geben Sie ja oder nein ein.");
+        System.out.println("""
+
+                Mochten Sie ein Tankvolumen fur dieses Fahrzeug anlegen?
+                Geben Sie ja oder nein ein.""");
         String w = scan.nextLine();
         switch (w) {
             case "ja" -> {
                 System.out.println("Tankvolumen eingeben");
-                tankvolumen = scan.nextInt();
+                tankvolumen = Integer.parseInt(scan.nextLine());
                 return tankvolumen;
             }
             case "nein" -> {
@@ -114,27 +119,36 @@ public class Auto {
 
     public int initTankstandt() {
 
-        System.out.println("Mochten Sie den aktuellen Tankstandt fur dieses Fahrzeug anlegen?\n" +
-                "Geben Sie ja oder nein ein.");
+        System.out.println("""
+
+                Mochten Sie den aktuellen Tankstandt fur dieses Fahrzeug anlegen?
+                Geben Sie ja oder nein ein.""");
         String x = scan.nextLine();
 
         switch (x) {
             case "ja" -> {
                 System.out.println("Bitte geben Sie ihren aktuellen Tankstand in Prozend (Ohne %-Zeichen) an");
-                tankstandt = scan.nextInt();
+                try {
+                    tankstandt = Integer.parseInt(scan.nextLine());
+                }catch (NumberFormatException e) {
+                    e.printStackTrace();
+                    return initTankstandt();
+                }
+
                 if (tankstandt >= 0 && tankstandt <= 100) {
                     System.out.println("""
-                            mochten Sie Ihre Reichweite wissen?\s
+                            \nmochten Sie Ihre Reichweite wissen?\s
                             geben Sie ja ein\s
                             oder nein falls nicht erwunscht""");
                     String p = scan.nextLine();
                     if (p.equals("ja")) {
                         System.out.println("Bitte geben Sie Ihren Durchschnittsverbrauch ein");
                         double y = scan.nextDouble();
-                        int reichweite = (int) (tankstandt / y) * 100;
-                        System.out.println("Die Reichweiter betragt: " + reichweite + "Km.");
+                        ThreadReichweite t1 = new ThreadReichweite(tankvolumen,tankstandt,y);
+                        ThreadReichweiteGesammt tg1 = new ThreadReichweiteGesammt(tankvolumen, y);
+                        t1.start();
+                        tg1.start();
                     }
-                    return tankstandt;
                 } else {
                     System.out.println("Keine gultige Eingabe");
                     initTankstandt();
@@ -153,9 +167,13 @@ public class Auto {
     }
 
 
-    public void getTankstandt(int tankstandt) {
+
+    public int getTankstandt(int tankstandt) {
         this.tankstandt = tankstandt;
+        return tankstandt;
     }
+
+
 //__________________________________________________________________//
 
 
